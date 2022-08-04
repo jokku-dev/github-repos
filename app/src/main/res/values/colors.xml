@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="grey_light_text">#adbaac</color>
+    <color name="grey_dark_text">#768390</color>
+    <color name="grey_frame">#444c56</color>
+    <color name="grey_bar">#2d333b</color>
+    <color name="grey_main">#22272e</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
