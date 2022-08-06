@@ -1,16 +1,14 @@
 package com.jokku.githubrepos.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.jokku.githubrepos.R
 import com.jokku.githubrepos.databinding.RepoItemBinding
 import com.jokku.githubrepos.vo.Repo
 
-class RepoListAdapter : RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
+class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
 
     inner class RepoViewHolder(private val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(repo: Repo) = with(binding) {
@@ -32,7 +30,7 @@ class RepoListAdapter : RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
 
     }
 
-    private val differ = AsyncListDiffer(this, differCallback)
+    val listDiffer = AsyncListDiffer(this, differCallback)
 
     private var onItemClickListener: ((Repo) -> Unit)? = null
 
@@ -43,7 +41,7 @@ class RepoListAdapter : RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        val repo = differ.currentList[position]
+        val repo = listDiffer.currentList[position]
         holder.bind(repo)
         setOnItemClickListener {
             onItemClickListener?.let { function ->
@@ -52,7 +50,7 @@ class RepoListAdapter : RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return differ.currentList.size
+        return listDiffer.currentList.size
     }
 
     private fun setOnItemClickListener(listener: (Repo) -> Unit) {

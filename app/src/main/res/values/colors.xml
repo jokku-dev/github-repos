@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="grey_light_text">#adbaac</color>
+    <color name="grey_light_text">#adbac7</color>
     <color name="grey_dark_text">#768390</color>
     <color name="grey_frame">#444c56</color>
     <color name="grey_bar">#2d333b</color>

@@ -2,6 +2,7 @@ package com.jokku.githubrepos.api
 
 import com.jokku.githubrepos.vo.Contributor
 import com.jokku.githubrepos.vo.Repo
+import com.jokku.githubrepos.vo.RepoSearchResult
 import com.jokku.githubrepos.vo.User
 import retrofit2.Response
 import retrofit2.http.GET
@@ -36,5 +37,5 @@ interface GithubService {
     suspend fun searchOrgRepos(
         @Query("q") query: String,
         @Query("page") page: Int
-    ): Response<Repo>
+    ): Response<RepoSearchResult>
 }
