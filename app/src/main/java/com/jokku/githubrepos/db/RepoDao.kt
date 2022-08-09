@@ -22,13 +22,13 @@ interface RepoDao {
     suspend fun insertContributors(contributors: List<Contributor>)
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertRepos(repositories: List<Repo>)
+    fun insertRepos(repositories: List<Repo>)
 
     @Insert(onConflict = IGNORE)
     suspend fun createRepoIfNotExist(repo: Repo): Long
 
     @Insert(onConflict = REPLACE)
-    suspend fun insert(result: RepoSearchResult)
+    fun insert(result: RepoSearchResult)
 
     @Query(
         """SELECT login, avatar_url, repoName, repoOwner, contributions FROM Contributor

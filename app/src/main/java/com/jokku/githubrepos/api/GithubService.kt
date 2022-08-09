@@ -4,6 +4,7 @@ import com.jokku.githubrepos.vo.Contributor
 import com.jokku.githubrepos.vo.Repo
 import com.jokku.githubrepos.vo.RepoSearchResult
 import com.jokku.githubrepos.vo.User
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -34,8 +35,8 @@ interface GithubService {
     ): Response<List<Contributor>>
 
     @GET("search/repositories")
-    suspend fun searchOrgRepos(
+    fun searchOrgRepos(
         @Query("q") query: String,
         @Query("page") page: Int
-    ): Response<RepoSearchResult>
+    ): Call<RepoSearchResponse>
 }

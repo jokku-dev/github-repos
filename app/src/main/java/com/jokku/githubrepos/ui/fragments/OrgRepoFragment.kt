@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jokku.githubrepos.R
 import com.jokku.githubrepos.adapters.RepoAdapter
 import com.jokku.githubrepos.databinding.FragmentOrgRepoBinding
@@ -23,7 +24,12 @@ class OrgRepoFragment : Fragment(R.layout.fragment_org_repo) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as GithubActivity).viewModel
         setupRecyclerView()
+        observeOrgRepos()
 
+
+    }
+
+    private fun observeOrgRepos() {
         viewModel.orgRepos.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
                 is Resource.Success -> {
@@ -45,20 +51,30 @@ class OrgRepoFragment : Fragment(R.layout.fragment_org_repo) {
         })
     }
 
+    private fun setupRecyclerView() {
+        repoAdapter = RepoAdapter()
+        binding.rvOrgRepos.apply {
+            adapter = repoAdapter
+            layoutManager = LinearLayoutManager(activity)
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val lastPosition = layoutManager.findLastVisibleItemPosition()
+                    if (lastPosition == repoAdapter.itemCount - 1) {
+                        viewModel.loadNextPage()
+                    }
+                }
+            })
+        }
+    }
+
     private fun hideProgressBar() {
         binding.loadPageBar.visibility = View.INVISIBLE
     }
 
     private fun showProgressBar() {
         binding.loadPageBar.visibility = View.VISIBLE
-    }
-
-    private fun setupRecyclerView() {
-        repoAdapter = RepoAdapter()
-        binding.rvOrgRepos.apply {
-            adapter = repoAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
     }
 }
 
